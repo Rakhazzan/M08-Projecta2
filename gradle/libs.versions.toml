@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.2"
 firebaseBom = "33.10.0"
+firebaseBomVersion = "33.9.0"
 googleServices = "4.4.2"
 gradle = "8.8.2"
 kotlin = "2.0.0"
@@ -20,7 +21,12 @@ googleFirebaseCrashlytics = "3.0.3"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-bom-v3390 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
+firebase-database = { module = "com.google.firebase:firebase-database" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

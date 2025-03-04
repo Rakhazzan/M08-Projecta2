@@ -9,18 +9,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
+        val btmlogin = findViewById<Button>(R.id.BTMLOGIN)
+        val btmregistro = findViewById<Button>(R.id.BTMREGISTRO)
 
-    fun fesuntoast(view: View){
-        Toast.makeText(this, "Has picat el botó!", Toast.LENGTH_SHORT).show()
+        btmlogin.setOnClickListener {
+            Toast.makeText(this, "Click en botón Login", Toast.LENGTH_LONG).show()
+        }
+
+        btmregistro.setOnClickListener {
+            Toast.makeText(this, "Redirigiendo a Registro...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, Registro::class.java)  // Llama a la actividad Registro
+            startActivity(intent)  // Inicia la nueva actividad
+        }
     }
 }
