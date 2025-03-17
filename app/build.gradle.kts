@@ -11,9 +11,6 @@ android {
     namespace = "com.example.m08_projecta2"
     compileSdk = 35
 
-
-
-
     defaultConfig {
         applicationId = "com.example.m08_projecta2"
         minSdk = 24
@@ -21,14 +18,12 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-
-
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-
-
+    sourceSets {
+        getByName("main").jniLibs.srcDirs("src/main/jniLibs")
+    }
 
     buildTypes {
         release {
@@ -57,6 +52,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.filament.android)
+    implementation(libs.androidx.constraintlayout.solver)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,7 +73,6 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
-
 
 
 

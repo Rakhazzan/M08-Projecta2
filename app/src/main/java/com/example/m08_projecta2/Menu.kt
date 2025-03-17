@@ -35,30 +35,31 @@ class Menu : AppCompatActivity() {
         val tf = Typeface.createFromAsset(assets,"fonts/mars.ttf")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-        tancarSessio =findViewById<Button>(R.id.tancarSessio)
-        CreditsBtn =findViewById<Button>(R.id.CreditsBtn)
-        PuntuacionsBtn =findViewById<Button>(R.id.PuntuacionsBtn)
-        jugarBtn =findViewById<Button>(R.id.jugarBtn)
+        tancarSessio = findViewById(R.id.tancarSessio)
+        CreditsBtn = findViewById(R.id.CreditsBtn)
+        PuntuacionsBtn = findViewById(R.id.PuntuacionsBtn)
+        jugarBtn = findViewById(R.id.jugarBtn)
         auth = FirebaseAuth.getInstance()
-        miPuntuaciotxt=findViewById(R.id.miPuntuaciotxt)
-        puntuacio=findViewById(R.id.puntuacio)
-        uid=findViewById(R.id.uid)
-        correo=findViewById(R.id.correo)
-        nom=findViewById(R.id.nom)
+        miPuntuaciotxt = findViewById(R.id.miPuntuaciotxt)
+        puntuacio = findViewById(R.id.puntuacio)
+        uid = findViewById(R.id.uid)
+        correo = findViewById(R.id.correo)
+        nom = findViewById(R.id.nom)
 
         user = auth.currentUser
 
         tancarSessio.setOnClickListener {
             tancalaSessio()
         }
-        CreditsBtn.setOnClickListener(){
-            Toast.makeText(this,"Credits", Toast.LENGTH_SHORT).show()
+        CreditsBtn.setOnClickListener {
+            Toast.makeText(this, "Credits", Toast.LENGTH_SHORT).show()
         }
-        PuntuacionsBtn.setOnClickListener(){
-            Toast.makeText(this,"Puntuacions", Toast.LENGTH_SHORT).show()
+        PuntuacionsBtn.setOnClickListener {
+            Toast.makeText(this, "Puntuacions", Toast.LENGTH_SHORT).show()
         }
-        jugarBtn.setOnClickListener(){
-            Toast.makeText(this,"JUGAR", Toast.LENGTH_SHORT).show()
+        jugarBtn.setOnClickListener {
+            val intent = Intent(this, FlappyBirdActivity::class.java)
+            startActivity(intent)
         }
         miPuntuaciotxt.setTypeface(tf)
         puntuacio.setTypeface(tf)
@@ -70,8 +71,8 @@ class Menu : AppCompatActivity() {
         PuntuacionsBtn.typeface = tf
         jugarBtn.typeface = tf
         consulta()
-
     }
+
     private fun consulta() {
         val database = FirebaseDatabase.getInstance("https://montserratak-3a32a-default-rtdb.europe-west1.firebasedatabase.app/")
         val bdreference = database.getReference("JUGADORS")
@@ -106,7 +107,6 @@ class Menu : AppCompatActivity() {
         })
     }
 
-
     private fun tancalaSessio() {
         auth.signOut()
         val intent = Intent(this, MainActivity::class.java)
@@ -127,5 +127,10 @@ class Menu : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        consulta()
     }
 }
