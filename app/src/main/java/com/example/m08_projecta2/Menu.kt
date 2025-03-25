@@ -10,11 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class Menu : AppCompatActivity() {
 
@@ -31,10 +27,12 @@ class Menu : AppCompatActivity() {
     lateinit var nom: TextView
 
     lateinit var reference: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        val tf = Typeface.createFromAsset(assets,"fonts/mars.ttf")
+        val tf = Typeface.createFromAsset(assets, "fonts/mars.ttf")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+
         tancarSessio = findViewById(R.id.tancarSessio)
         CreditsBtn = findViewById(R.id.CreditsBtn)
         PuntuacionsBtn = findViewById(R.id.PuntuacionsBtn)
@@ -61,15 +59,11 @@ class Menu : AppCompatActivity() {
             val intent = Intent(this, FlappyBirdActivity::class.java)
             startActivity(intent)
         }
-        miPuntuaciotxt.setTypeface(tf)
-        puntuacio.setTypeface(tf)
-        uid.setTypeface(tf)
-        correo.setTypeface(tf)
-        nom.setTypeface(tf)
-        tancarSessio.typeface = tf
-        CreditsBtn.typeface = tf
-        PuntuacionsBtn.typeface = tf
-        jugarBtn.typeface = tf
+
+        // Aplicar fuente a los textos y botones
+        listOf(miPuntuaciotxt, puntuacio, uid, correo, nom, tancarSessio, CreditsBtn, PuntuacionsBtn, jugarBtn)
+            .forEach { it.typeface = tf }
+
         consulta()
     }
 
@@ -88,7 +82,8 @@ class Menu : AppCompatActivity() {
 
                     if (emailDb == user?.email) {
                         trobat = true
-                        puntuacio.text = ds.child("Puntuacio").getValue(String::class.java) ?: "0"
+                        val puntuacionValor = ds.child("Puntuacio").getValue(Long::class.java) ?: 0L
+                        puntuacio.text = puntuacionValor.toString()
                         uid.text = ds.child("Uid").getValue(String::class.java) ?: "N/A"
                         correo.text = emailDb ?: "N/A"
                         nom.text = ds.child("Nom").getValue(String::class.java) ?: "N/A"

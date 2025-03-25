@@ -10,10 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.random.Random
 
-class Pipe(offsetX: Int = 0) {
+class Pipe(offsetX: Int = 0, private val gap: Float = 400f) {
     var x = 1000f + offsetX
-    private val gap = 300f
-    private val height = Random.nextInt(300, 800).toFloat()
+    private val topHeight = Random.nextInt(200, 600).toFloat()
+    private val bottomHeight = topHeight + gap
     private val paint = Paint().apply { color = Color.GREEN }
 
     fun update() {
@@ -21,14 +21,14 @@ class Pipe(offsetX: Int = 0) {
     }
 
     fun draw(canvas: Canvas) {
-        canvas.drawRect(x, 0f, x + WIDTH, height, paint)
-        canvas.drawRect(x, height + gap, x + WIDTH, 1600f, paint)
+        canvas.drawRect(x, 0f, x + WIDTH, topHeight, paint)
+        canvas.drawRect(x, bottomHeight, x + WIDTH, 1600f, paint)
     }
 
     fun checkCollision(bird: Bird): Boolean {
         val birdBounds = bird.getBounds()
         return (birdBounds.right > x && birdBounds.left < x + WIDTH &&
-                (birdBounds.top < height || birdBounds.bottom > height + gap))
+                (birdBounds.top < topHeight || birdBounds.bottom > bottomHeight))
     }
 
     companion object {
